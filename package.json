@@ -150,5 +150,8 @@
     "languages": "js",
     "type": "library",
     "version": "0.54.5"
+  },
+  "dependencies": {
+    "react-native-webview": "^13.16.0"
   }
 }
