@@ -27,3 +27,5 @@ export const GymSense = ({ token, activity, target, onResult, debug }: Props) =>
 
   )
 }
+
+export type { GymSenseResult } from "./models/GymSenseMessage";
