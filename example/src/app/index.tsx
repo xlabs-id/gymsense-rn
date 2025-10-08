@@ -1,5 +1,6 @@
 import { View, Platform, StyleSheet } from 'react-native';
 import { GymSense } from 'gymsense-rn'
+import type { GymSenseResult } from 'gymsense-rn'
 
 export default function Index() {
   return (
@@ -8,7 +9,7 @@ export default function Index() {
         token="eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6ImdlcmFraW4iLCJleHAiOjE3NTk5MDk0MzV9.fArRIkMkGOIqE7TUSKrseBznV4ybAtTeV0tGl4jY4Xg"
         activity="lunges"
         target={8}
-        onResult={(result) => {
+        onResult={(result: GymSenseResult) => {
           console.log("GymSense Activity Completed")
           console.log("Activity:", result.activity)
           console.log("Start:", result.start)
