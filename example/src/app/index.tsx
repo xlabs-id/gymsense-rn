@@ -6,7 +6,7 @@ export default function Index() {
   return (
     <View style={styles.safeArea}>
       <GymSense
-        token="eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6ImdlcmFraW4iLCJleHAiOjE3NTk5MDk0MzV9.fArRIkMkGOIqE7TUSKrseBznV4ybAtTeV0tGl4jY4Xg"
+        token="your_token_here"
         activity="lunges"
         target={8}
         onResult={(result: GymSenseResult) => {

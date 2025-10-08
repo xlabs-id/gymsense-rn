@@ -11,35 +11,36 @@ npm install gymsense-rn
 ## Usage
 
 ```ts
-import { StyleSheet } from 'react-native';
+import { View, Platform, StyleSheet } from 'react-native';
 import { GymSense } from 'gymsense-rn'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import type { GymSenseResult } from 'gymsense-rn'
 
-export default function App() {
+export default function Index() {
   return (
-    <SafeAreaView style={styles.safeArea} edges={['right', 'left', 'bottom', 'top']}>
+    <View style={styles.safeArea}>
       <GymSense
         token="your_token_here"
         activity="lunges"
         target={8}
-        onResult={(result) => {
+        onResult={(result: GymSenseResult) => {
           console.log("GymSense Activity Completed")
           console.log("Activity:", result.activity)
           console.log("Start:", result.start)
           console.log("End:", result.end)
           console.log("Duration:", result.duration)
           console.log("Accuracy:", result.accuracy)
-        debug={false}
         }}
+        debug={false}
       />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "transparent",
+    paddingBottom: Platform.OS === 'android' ? 50 : 0,
   },
 });
 ```
