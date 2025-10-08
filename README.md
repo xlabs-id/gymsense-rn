@@ -80,8 +80,10 @@ export interface GymSenseResult {
 
 ### Native
 
-<img src="images/GymSense-Android.png" alt="Android Screenshot" height="500"/>
-<img src="images/GymSense-iOS.png" alt="iOS Screenshot" height="500"/>
+<div style="display: flex; gap: 10px; align-items: flex-start;">
+  <img src="images/GymSense-Android.png" alt="Android Screenshot" height="500"/>
+  <img src="images/GymSense-iOS.png" alt="iOS Screenshot" height="500"/>
+</div>
 
 ## License
 
