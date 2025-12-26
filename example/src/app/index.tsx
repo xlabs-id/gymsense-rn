@@ -1,21 +1,24 @@
 import { View, Platform, StyleSheet } from 'react-native';
-import { GymSense } from 'gymsense-rn'
-import type { GymSenseResult } from 'gymsense-rn'
+import { Exercise } from 'gymsense-rn';
+import type { SessionCompletePayload } from 'gymsense-rn';
 
 export default function Index() {
   return (
     <View style={styles.safeArea}>
-      <GymSense
+      <Exercise
         token="your_token_here"
-        activity="lunges"
-        target={8}
-        onResult={(result: GymSenseResult) => {
-          console.log("GymSense Activity Completed")
-          console.log("Activity:", result.activity)
-          console.log("Start:", result.start)
-          console.log("End:", result.end)
-          console.log("Duration:", result.duration)
-          console.log("Accuracy:", result.accuracy)
+        exerciseId={12}
+        target={10}
+        theme="light"
+        onSessionComplete={(result: SessionCompletePayload) => {
+          console.log('Exercise Session Completed');
+          console.log('Exercise ID:', result.exerciseId);
+          console.log('Exercise Name:', result.exerciseName);
+          console.log('Type:', result.type);
+          console.log('Count:', result.count);
+          console.log('Accuracy:', result.accuracy);
+          console.log('ROM:', result.rom);
+          console.log('Stability:', result.stability);
         }}
         debug={false}
       />
@@ -26,7 +29,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     paddingBottom: Platform.OS === 'android' ? 50 : 0,
   },
 });
