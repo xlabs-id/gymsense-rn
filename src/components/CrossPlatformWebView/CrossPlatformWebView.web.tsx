@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import type {
   GymSenseMessage,
   SessionCompletePayload,
+  SetCompletePayload,
   ExerciseCreatedPayload,
 } from '../../models/GymSenseMessage';
 
@@ -11,6 +12,8 @@ type Props = {
   uri: string;
   onLog?: (message: string) => void;
   onSessionComplete?: (result: SessionCompletePayload) => void;
+  onSetComplete?: (result: SetCompletePayload) => void;
+  onSessionCanceled?: () => void;
   onExerciseCreated?: (result: ExerciseCreatedPayload) => void;
 };
 
@@ -27,6 +30,14 @@ export default function CrossPlatformWebView(props: Props) {
 
         if (data?.type === 'SESSION_COMPLETE' && data.payload) {
           props.onSessionComplete?.(data.payload as SessionCompletePayload);
+        }
+
+        if (data?.type === 'SET_COMPLETE' && data.payload) {
+          props.onSetComplete?.(data.payload as SetCompletePayload);
+        }
+
+        if (data?.type === 'SESSION_CANCELED') {
+          props.onSessionCanceled?.();
         }
 
         if (data?.type === 'EXERCISE_CREATED' && data.payload) {

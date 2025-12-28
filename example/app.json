@@ -17,12 +17,15 @@
       "supportsTablet": true,
       "bundleIdentifier": "gymsense.example",
       "infoPlist": {
-        "NSCameraUsageDescription": "This app uses the camera to detect body moves."
+        "NSCameraUsageDescription": "This app uses the camera to detect body moves.",
+        "UIBackgroundModes": ["audio"]
       }
     },
     "android": {
       "permissions": [
-        "CAMERA"
+        "CAMERA",
+        "MODIFY_AUDIO_SETTINGS",
+        "INTERNET"
       ],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
