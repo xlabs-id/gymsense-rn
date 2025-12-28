@@ -5,8 +5,10 @@ XLabs GymSense multiplatform library.
 ## Installation
 
 ```sh
-npm install gymsense-rn
+npm install gymsense-rn expo-speech
 ```
+
+**Note:** `expo-speech` is required for native text-to-speech support in the embedded web application.
 
 ## Usage
 
@@ -17,7 +19,7 @@ Use the `Exercise` component to execute exercises with a specific exercise ID an
 ```ts
 import { View, Platform, StyleSheet } from 'react-native';
 import { Exercise } from 'gymsense-rn';
-import type { SessionCompletePayload } from 'gymsense-rn';
+import type { SessionCompletePayload, SetCompletePayload } from 'gymsense-rn';
 
 export default function Index() {
   return (
@@ -26,16 +28,28 @@ export default function Index() {
         token="your_token_here"
         exerciseId={12}
         target={10}
+        sets={3}
+        restDuration={45}
         theme="light"
+        onSetComplete={(result: SetCompletePayload) => {
+          console.log("Set Completed");
+          console.log("Set Number:", result.setNumber);
+          console.log("Count:", result.count);
+          console.log("Accuracy:", result.accuracy);
+          console.log("Duration:", result.duration);
+        }}
         onSessionComplete={(result: SessionCompletePayload) => {
           console.log("Exercise Session Completed");
           console.log("Exercise ID:", result.exerciseId);
           console.log("Exercise Name:", result.exerciseName);
           console.log("Type:", result.type);
-          console.log("Count:", result.count);
-          console.log("Accuracy:", result.accuracy);
-          console.log("ROM:", result.rom);
-          console.log("Stability:", result.stability);
+          console.log("Total Sets:", result.totalSets);
+          console.log("Sets Data:", result.sets);
+          console.log("Total Count:", result.count);
+          console.log("Average Accuracy:", result.accuracy);
+        }}
+        onSessionCanceled={() => {
+          console.log("Exercise Session Canceled");
         }}
         debug={false}
       />
@@ -98,14 +112,18 @@ const styles = StyleSheet.create({
 
 ### Exercise
 
-| Prop                | Type                                       | Required | Description                          |
-| ------------------- | ------------------------------------------ | -------- | ------------------------------------ |
-| `token`             | `string`                                   | Yes      | Authentication token                 |
-| `exerciseId`        | `number`                                   | Yes      | ID of the exercise to execute        |
-| `target`            | `number`                                   | Yes      | Target repetitions or duration       |
-| `theme`             | `'light' \| 'dark'`                        | No       | UI theme (default: `'light'`)        |
-| `onSessionComplete` | `(result: SessionCompletePayload) => void` | No       | Callback when session completes      |
-| `debug`             | `boolean`                                  | No       | Enable debug mode (default: `false`) |
+| Prop                | Type                                       | Required | Description                                           |
+| ------------------- | ------------------------------------------ | -------- | ----------------------------------------------------- |
+| `token`             | `string`                                   | Yes      | Authentication token                                  |
+| `exerciseId`        | `number`                                   | Yes      | ID of the exercise to execute                         |
+| `target`            | `number`                                   | Yes      | Target repetitions or duration per set                |
+| `sets`              | `number`                                   | No       | Number of sets to perform (default: `1`)              |
+| `restDuration`      | `number`                                   | No       | Rest duration between sets in seconds (default: `30`) |
+| `theme`             | `'light' \| 'dark'`                        | No       | UI theme (default: `'light'`)                         |
+| `onSetComplete`     | `(result: SetCompletePayload) => void`     | No       | Callback when each set completes                      |
+| `onSessionComplete` | `(result: SessionCompletePayload) => void` | No       | Callback when entire session completes                |
+| `onSessionCanceled` | `() => void`                               | No       | Callback when session is canceled                     |
+| `debug`             | `boolean`                                  | No       | Enable debug mode (default: `false`)                  |
 
 ### RecordExercise
 
@@ -120,20 +138,40 @@ const styles = StyleSheet.create({
 
 ## Message Payloads
 
-### SessionCompletePayload
+### SetCompletePayload
+
+Triggered when each individual set is completed.
 
 ```ts
 {
-  start: number;              // Unix timestamp in seconds (session start)
-  end: number;                // Unix timestamp in seconds (session end)
-  duration: number;           // Duration in seconds
-  exerciseId: number;         // Exercise ID number
-  exerciseName: string;       // Name of the exercise
-  type: "repetition" | "hold"; // Exercise type
-  count: number;              // For repetition: totalReps, for hold: totalValidSeconds
-  accuracy: number;           // Average score (0-100)
-  rom?: number;               // Range of Motion (only for repetition exercises)
-  stability?: number;         // Stability score (only for hold exercises)
+  setNumber: number;   // Set number (1-indexed)
+  count: number;       // Reps completed or seconds held
+  accuracy: number;    // Score (0-100)
+  rom?: number;        // Range of Motion (if exerciseType is 'repetition')
+  stability?: number;  // Stability score (if exerciseType is 'hold')
+  duration: number;    // Duration of the set in seconds
+  target: number;      // The target count for this set
+}
+```
+
+### SessionCompletePayload
+
+Triggered when the entire exercise session is completed (all sets finished).
+
+```ts
+{
+  start: number;                 // Start timestamp (Unix seconds)
+  end: number;                   // End timestamp (Unix seconds)
+  duration: number;              // Total session duration in seconds
+  exerciseId: number;            // ID of the exercise
+  exerciseName: string;          // Name of the exercise
+  type: "repetition" | "hold";   // Exercise type
+  totalSets: number;             // Total number of sets configured
+  sets: SetCompletePayload[];    // Array of data for each completed set
+  count: number;                 // Total reps/seconds across all sets
+  accuracy: number;              // Average accuracy across all sets
+  rom?: number;                  // Average ROM (if applicable)
+  stability?: number;            // Average Stability (if applicable)
 }
 ```
 
@@ -163,6 +201,20 @@ const styles = StyleSheet.create({
   <img src="images/GymSense-Android.png" alt="Android Screenshot" height="500"/>
   <img src="images/GymSense-iOS.png" alt="iOS Screenshot" height="500"/>
 </div>
+
+## Features
+
+### Native Text-to-Speech Bridge
+
+The library includes a native TTS bridge that enables the embedded web application to use text-to-speech on mobile devices. The Web Speech API (`SpeechSynthesisUtterance`) is automatically polyfilled and routed to the device's native TTS engine via `expo-speech`.
+
+**Benefits:**
+- ✅ Works on iOS and Android (where Web Speech API is not supported in WebViews)
+- ✅ No changes required in the web application code
+- ✅ Uses native device voices for better quality
+- ✅ Supports multiple languages and voice customization
+
+For detailed information, see [TTS_BRIDGE_GUIDE.md](TTS_BRIDGE_GUIDE.md).
 
 ## License
 
