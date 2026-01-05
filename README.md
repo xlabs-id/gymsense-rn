@@ -30,6 +30,7 @@ export default function Index() {
         target={10}
         sets={3}
         restDuration={45}
+        bodyWeight={70}
         theme="light"
         onSetComplete={(result: SetCompletePayload) => {
           console.log("Set Completed");
@@ -47,6 +48,7 @@ export default function Index() {
           console.log("Sets Data:", result.sets);
           console.log("Total Count:", result.count);
           console.log("Average Accuracy:", result.accuracy);
+          console.log("Calories Burned:", result.calories);
         }}
         onSessionCanceled={() => {
           console.log("Exercise Session Canceled");
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
 | `target`            | `number`                                   | Yes      | Target repetitions or duration per set                |
 | `sets`              | `number`                                   | No       | Number of sets to perform (default: `1`)              |
 | `restDuration`      | `number`                                   | No       | Rest duration between sets in seconds (default: `30`) |
+| `bodyWeight`        | `number`                                   | No       | User's body weight in kg (optional)                   |
 | `theme`             | `'light' \| 'dark'`                        | No       | UI theme (default: `'light'`)                         |
 | `onSetComplete`     | `(result: SetCompletePayload) => void`     | No       | Callback when each set completes                      |
 | `onSessionComplete` | `(result: SessionCompletePayload) => void` | No       | Callback when entire session completes                |
@@ -172,6 +175,7 @@ Triggered when the entire exercise session is completed (all sets finished).
   accuracy: number;              // Average accuracy across all sets
   rom?: number;                  // Average ROM (if applicable)
   stability?: number;            // Average Stability (if applicable)
+  calories?: number;             // Estimated calories burned during the session (if applicable)
 }
 ```
 

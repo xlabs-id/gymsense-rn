@@ -6,11 +6,12 @@ export default function ExerciseExample() {
   return (
     <View style={styles.safeArea}>
       <Exercise
-        token="***REMOVED***g"
-        exerciseId={20}
-        target={10}
-        sets={3}
+        token="REMOVED"
+        exerciseId={24}
+        target={1}
+        sets={1}
         restDuration={45}
+        bodyWeight={70}
         theme="light"
         onSetComplete={(result: SetCompletePayload) => {
           console.log('Set Completed');
@@ -40,6 +41,9 @@ export default function ExerciseExample() {
           }
           if (result.stability !== undefined) {
             console.log('Average Stability:', result.stability);
+          }
+          if (result.calories !== undefined) {
+            console.log('Calories Burned:', result.calories);
           }
         }}
         onSessionCanceled={() => {

@@ -35,6 +35,7 @@ export interface SessionCompletePayload {
   accuracy: number; // Average accuracy across all sets
   rom?: number; // Average ROM (if applicable)
   stability?: number; // Average Stability (if applicable)
+  calories?: number; // Estimated calories burned during the session (if applicable)
 }
 
 export interface ExerciseCreatedPayload {
