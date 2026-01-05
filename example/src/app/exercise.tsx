@@ -6,11 +6,12 @@ export default function ExerciseExample() {
   return (
     <View style={styles.safeArea}>
       <Exercise
-        token="eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6MSwiZXhwIjoxNzY3MDEyMjEwfQ.8GwWA8MxrTV_gjdYgwTiHkquWJCSWoPFAthD2dCqdxg"
-        exerciseId={20}
-        target={10}
-        sets={3}
+        token="eyJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJZCI6MSwiZXhwIjoxNzY3NzEwNDIxfQ.UCENniVEY8YmxIo2se32BxRsDsmWH3_kwqfUWnLJV9k"
+        exerciseId={24}
+        target={1}
+        sets={1}
         restDuration={45}
+        bodyWeight={70}
         theme="light"
         onSetComplete={(result: SetCompletePayload) => {
           console.log('Set Completed');
@@ -40,6 +41,9 @@ export default function ExerciseExample() {
           }
           if (result.stability !== undefined) {
             console.log('Average Stability:', result.stability);
+          }
+          if (result.calories !== undefined) {
+            console.log('Calories Burned:', result.calories);
           }
         }}
         onSessionCanceled={() => {
