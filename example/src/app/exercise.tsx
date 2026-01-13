@@ -12,6 +12,8 @@ export default function ExerciseExample() {
         sets={1}
         restDuration={45}
         bodyWeight={70}
+        resultPostUrl="https:/api.yours.com/upload/test.mp4"
+        resultPostToken="token"
         theme="light"
         onSetComplete={(result: SetCompletePayload) => {
           console.log('Set Completed');
