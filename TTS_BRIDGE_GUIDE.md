@@ -10,6 +10,7 @@ The embedded web application uses the **Web Speech API** (`SpeechSynthesisUttera
 ## Solution
 
 We've implemented a **native TTS bridge** that:
+
 1. Polyfills the Web Speech API in the WebView
 2. Intercepts `speechSynthesis.speak()` calls
 3. Forwards them to React Native's `expo-speech` for native TTS playback
@@ -40,24 +41,28 @@ The WebView injects JavaScript that creates a polyfill for the Web Speech API:
 
 ```javascript
 window.speechSynthesis = {
-  speak: function(utterance) {
-    window.ReactNativeWebView.postMessage(JSON.stringify({
-      source: 'gymsense',
-      type: 'TTS_SPEAK',
-      payload: {
-        text: utterance.text,
-        lang: utterance.lang,
-        rate: utterance.rate,
-        pitch: utterance.pitch,
-        volume: utterance.volume
-      }
-    }));
+  speak: function (utterance) {
+    window.ReactNativeWebView.postMessage(
+      JSON.stringify({
+        source: 'gymsense',
+        type: 'TTS_SPEAK',
+        payload: {
+          text: utterance.text,
+          lang: utterance.lang,
+          rate: utterance.rate,
+          pitch: utterance.pitch,
+          volume: utterance.volume,
+        },
+      })
+    );
   },
-  cancel: function() { /* stops speech */ },
+  cancel: function () {
+    /* stops speech */
+  },
   // ... other methods
 };
 
-window.SpeechSynthesisUtterance = function(text) {
+window.SpeechSynthesisUtterance = function (text) {
   this.text = text || '';
   this.lang = 'en-US';
   this.rate = 1.0;
@@ -74,7 +79,7 @@ The WebView's `onMessage` handler processes TTS requests:
 ```typescript
 if (data?.type === 'TTS_SPEAK' && data.payload) {
   const { text, lang, rate, pitch, volume } = data.payload;
-  
+
   Speech.speak(text, {
     language: lang || 'en-US',
     rate: rate || 1.0,
@@ -91,21 +96,26 @@ if (data?.type === 'TTS_STOP') {
 ## Files Modified
 
 ### 1. **CrossPlatformWebView.native.tsx**
+
 - Added `expo-speech` import
 - Added TTS message handlers (`TTS_SPEAK`, `TTS_STOP`)
 - Injected JavaScript polyfill for Web Speech API
 
 ### 2. **GymSenseMessage.tsx**
+
 - Added `TTS_SPEAK` and `TTS_STOP` message types
 - Added `TTSSpeakPayload` interface
 
 ### 3. **package.json** (root)
+
 - Added `expo-speech` as peer dependency
 
 ### 4. **example/package.json**
+
 - Added `expo-speech` as dependency
 
 ### 5. **example/app.json**
+
 - Added `MODIFY_AUDIO_SETTINGS` and `INTERNET` permissions for Android
 - Added `UIBackgroundModes: ["audio"]` for iOS
 
@@ -129,17 +139,20 @@ window.speechSynthesis.speak(utterance);
 ## Supported Features
 
 ✅ **Supported:**
+
 - `speechSynthesis.speak(utterance)` - Speaks text
 - `speechSynthesis.cancel()` - Stops speaking
 - `SpeechSynthesisUtterance` constructor
 - Properties: `text`, `lang`, `rate`, `pitch`, `volume`
 
 ⚠️ **Limited Support:**
+
 - Event callbacks (`onstart`, `onend`, etc.) - Not implemented
 - `speechSynthesis.pause()` / `resume()` - No-op
 - `speechSynthesis.getVoices()` - Returns empty array
 
 ❌ **Not Supported:**
+
 - Voice selection (uses system default)
 - Real-time voice list updates
 
@@ -224,12 +237,14 @@ Speech.speak('Hello from native TTS', {
 If the native bridge doesn't work for your use case:
 
 ### Option 1: Pre-recorded Audio Files
+
 ```javascript
 const audio = new Audio(`https://your-cdn.com/numbers/${number}.mp3`);
 audio.play();
 ```
 
 ### Option 2: Cloud TTS Service
+
 ```javascript
 const audio = new Audio(
   `https://api.elevenlabs.io/v1/text-to-speech?text=${encodeURIComponent(text)}`
@@ -238,6 +253,7 @@ audio.play();
 ```
 
 ### Option 3: Web Audio API
+
 Generate speech using Web Audio API (more complex, requires synthesis library)
 
 ## Language Support
@@ -248,6 +264,7 @@ The bridge supports all languages supported by the device's native TTS engine:
 - **Android**: Uses TextToSpeech (depends on installed engines)
 
 Common language codes:
+
 - `en-US` - English (US)
 - `en-GB` - English (UK)
 - `es-ES` - Spanish (Spain)
@@ -262,9 +279,11 @@ Common language codes:
 ### Message Types
 
 #### `TTS_SPEAK`
+
 Requests native TTS to speak text.
 
 **Payload:**
+
 ```typescript
 {
   text: string;      // Text to speak
@@ -276,6 +295,7 @@ Requests native TTS to speak text.
 ```
 
 #### `TTS_STOP`
+
 Stops current and queued speech.
 
 **Payload:** `{}` (empty object)

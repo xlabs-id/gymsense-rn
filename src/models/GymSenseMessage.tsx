@@ -1,7 +1,20 @@
 export interface GymSenseMessage {
   source: 'gymsense';
-  type: 'LOG' | 'SESSION_COMPLETE' | 'SESSION_CANCELED' | 'SET_COMPLETE' | 'EXERCISE_CREATED' | 'TTS_SPEAK' | 'TTS_STOP';
-  payload?: string | SessionCompletePayload | SetCompletePayload | ExerciseCreatedPayload | TTSSpeakPayload | Record<string, never>;
+  type:
+    | 'LOG'
+    | 'SESSION_COMPLETE'
+    | 'SESSION_CANCELED'
+    | 'SET_COMPLETE'
+    | 'EXERCISE_CREATED'
+    | 'TTS_SPEAK'
+    | 'TTS_STOP';
+  payload?:
+    | string
+    | SessionCompletePayload
+    | SetCompletePayload
+    | ExerciseCreatedPayload
+    | TTSSpeakPayload
+    | Record<string, never>;
 }
 
 export interface TTSSpeakPayload {

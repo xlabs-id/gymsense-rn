@@ -22,11 +22,7 @@
       }
     },
     "android": {
-      "permissions": [
-        "CAMERA",
-        "MODIFY_AUDIO_SETTINGS",
-        "INTERNET"
-      ],
+      "permissions": ["CAMERA", "MODIFY_AUDIO_SETTINGS", "INTERNET"],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

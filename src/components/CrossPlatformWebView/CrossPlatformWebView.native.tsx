@@ -83,7 +83,7 @@ export default function CrossPlatformWebView(props: Props) {
               pitch?: number;
               volume?: number;
             };
-            
+
             Speech.speak(text, {
               language: lang || 'en-US',
               rate: rate || 1.0,

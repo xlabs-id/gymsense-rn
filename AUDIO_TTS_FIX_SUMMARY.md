@@ -1,17 +1,22 @@
 # WebView Audio & TTS Fix - Summary
 
 ## Issue
+
 The embedded web application was not playing sound in the WebView on mobile devices.
 
 ## Root Cause
+
 The web app uses **Web Speech API** (`SpeechSynthesisUtterance` and `window.speechSynthesis`) for text-to-speech, which is **NOT supported** in mobile WebViews:
+
 - ❌ iOS WebView (WKWebView): Speech Synthesis API completely unsupported
 - ❌ Android WebView: Speech Synthesis API unreliable
 
 ## Solution Implemented
 
 ### Native TTS Bridge
+
 We created a bridge that:
+
 1. **Polyfills** the Web Speech API in the WebView using injected JavaScript
 2. **Intercepts** `speechSynthesis.speak()` calls
 3. **Forwards** them to React Native's `expo-speech` for native TTS playback
@@ -19,28 +24,37 @@ We created a bridge that:
 ### Changes Made
 
 #### 1. WebView Configuration
+
 **File:** `src/components/CrossPlatformWebView/CrossPlatformWebView.native.tsx`
+
 - Added `expo-speech` integration
 - Added TTS message handlers (`TTS_SPEAK`, `TTS_STOP`)
 - Injected JavaScript polyfill for Web Speech API
 - Added audio playback props (`allowsAirPlayForMediaPlayback`, `sharedCookiesEnabled`, `mixedContentMode`)
 
 #### 2. Message Types
+
 **File:** `src/models/GymSenseMessage.tsx`
+
 - Added `TTS_SPEAK` and `TTS_STOP` message types
 - Added `TTSSpeakPayload` interface
 
 #### 3. Dependencies
+
 **Files:** `package.json`, `example/package.json`
+
 - Added `expo-speech` as peer dependency (root)
 - Added `expo-speech` as dependency (example)
 
 #### 4. Permissions & Configuration
+
 **File:** `example/app.json`
+
 - **Android:** Added `MODIFY_AUDIO_SETTINGS` and `INTERNET` permissions
 - **iOS:** Added `UIBackgroundModes: ["audio"]`
 
 #### 5. Documentation
+
 - Created `TTS_BRIDGE_GUIDE.md` - Comprehensive TTS bridge documentation
 - Created `WEBVIEW_AUDIO_FIX.md` - Audio playback troubleshooting guide
 - Updated `README.md` - Added installation instructions and features section
@@ -153,18 +167,21 @@ window.speechSynthesis.speak(utterance); // ✅ Now works in WebView!
 ### Still not working?
 
 See detailed troubleshooting in:
+
 - `TTS_BRIDGE_GUIDE.md` - TTS-specific issues
 - `WEBVIEW_AUDIO_FIX.md` - General audio issues
 
 ## Supported Features
 
 ✅ **Working:**
+
 - Text-to-speech with native voices
 - Language selection (60+ languages on iOS, varies on Android)
 - Rate, pitch, and volume control
 - Stop/cancel speech
 
 ⚠️ **Limited:**
+
 - Event callbacks (onstart, onend) - Not implemented
 - Voice selection - Uses system default
 - Pause/resume - Not implemented
@@ -188,7 +205,7 @@ See detailed troubleshooting in:
 ✅ **Solution:** Native TTS bridge via expo-speech  
 ✅ **Status:** Implemented and ready to test  
 ✅ **Web App Changes:** None required (transparent polyfill)  
-✅ **Next Step:** Rebuild app and test on physical device  
+✅ **Next Step:** Rebuild app and test on physical device
 
 ---
 

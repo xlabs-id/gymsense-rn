@@ -1,7 +1,10 @@
 import CrossPlatformWebView from './CrossPlatformWebView';
-import type { SessionCompletePayload, SetCompletePayload } from '../models/GymSenseMessage';
+import type {
+  SessionCompletePayload,
+  SetCompletePayload,
+} from '../models/GymSenseMessage';
 
-const ROOT_URI = 'https://gymsense.xlabs.local';
+const ROOT_URI = 'https://gymsense.xlabs.id';
 
 type Props = {
   token: string;

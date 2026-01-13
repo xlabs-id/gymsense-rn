@@ -213,6 +213,7 @@ Triggered when the entire exercise session is completed (all sets finished).
 The library includes a native TTS bridge that enables the embedded web application to use text-to-speech on mobile devices. The Web Speech API (`SpeechSynthesisUtterance`) is automatically polyfilled and routed to the device's native TTS engine via `expo-speech`.
 
 **Benefits:**
+
 - ✅ Works on iOS and Android (where Web Speech API is not supported in WebViews)
 - ✅ No changes required in the web application code
 - ✅ Uses native device voices for better quality
