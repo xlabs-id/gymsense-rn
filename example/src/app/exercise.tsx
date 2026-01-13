@@ -6,7 +6,7 @@ export default function ExerciseExample() {
   return (
     <View style={styles.safeArea}>
       <Exercise
-        token="REMOVED"
+        token="your_token_here"
         exerciseId={24}
         target={1}
         sets={1}
