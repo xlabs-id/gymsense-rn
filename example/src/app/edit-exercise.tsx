@@ -1,17 +1,16 @@
 import { View, Platform, StyleSheet } from 'react-native';
-import { RecordExercise } from 'gymsense-rn';
-import type { ExerciseCreatedPayload } from 'gymsense-rn';
+import { EditExercise } from 'gymsense-rn';
+import type { ExerciseUpdatedPayload } from 'gymsense-rn';
 
-export default function RecordExerciseExample() {
+export default function EditExerciseExample() {
   return (
     <View style={styles.safeArea}>
-      <RecordExercise
+      <EditExercise
         token="your_token_here"
-        authorId={1}
-        authorName="Demo User"
+        exerciseId={123}
         theme="light"
-        onExerciseCreated={(result: ExerciseCreatedPayload) => {
-          console.log('Exercise Created Successfully!');
+        onExerciseUpdated={(result: ExerciseUpdatedPayload) => {
+          console.log('Exercise Updated Successfully!');
           console.log('Exercise ID:', result.exerciseId);
           console.log('Exercise Name:', result.exerciseName);
           console.log('Exercise Type:', result.exerciseType);
@@ -19,7 +18,7 @@ export default function RecordExerciseExample() {
           console.log('Author Name:', result.authorName);
           console.log('Video URL:', result.videoUrl);
           console.log('Icon URL:', result.iconUrl);
-          console.log('Created At:', result.createdAt);
+          console.log('Updated At:', result.updatedAt);
         }}
         debug={false}
       />

@@ -6,6 +6,7 @@ import type {
   SessionCompletePayload,
   SetCompletePayload,
   ExerciseCreatedPayload,
+  ExerciseUpdatedPayload,
 } from '../../models/GymSenseMessage';
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
   onSetComplete?: (result: SetCompletePayload) => void;
   onSessionCanceled?: () => void;
   onExerciseCreated?: (result: ExerciseCreatedPayload) => void;
+  onExerciseUpdated?: (result: ExerciseUpdatedPayload) => void;
 };
 
 export default function CrossPlatformWebView(props: Props) {
@@ -72,6 +74,10 @@ export default function CrossPlatformWebView(props: Props) {
 
           if (data?.type === 'EXERCISE_CREATED' && data.payload) {
             props.onExerciseCreated?.(data.payload as ExerciseCreatedPayload);
+          }
+
+          if (data?.type === 'EXERCISE_UPDATED' && data.payload) {
+            props.onExerciseUpdated?.(data.payload as ExerciseUpdatedPayload);
           }
 
           // Handle TTS requests from the web app

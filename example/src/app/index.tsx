@@ -28,6 +28,14 @@ export default function Index() {
           Create new exercises by recording movements
         </Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push('/edit-exercise')}
+      >
+        <Text style={styles.buttonText}>EditExercise Component</Text>
+        <Text style={styles.buttonDescription}>Edit existing exercises</Text>
+      </TouchableOpacity>
     </View>
   );
 }

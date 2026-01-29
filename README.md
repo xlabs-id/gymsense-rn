@@ -93,7 +93,50 @@ export default function Index() {
           console.log("Author ID:", result.authorId);
           console.log("Author Name:", result.authorName);
           console.log("Video URL:", result.videoUrl);
+          console.log("Icon URL:", result.iconUrl);
           console.log("Created At:", result.createdAt);
+        }}
+        debug={false}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "transparent",
+    paddingBottom: Platform.OS === 'android' ? 50 : 0,
+  },
+});
+```
+
+### EditExercise Component
+
+Use the `EditExercise` component to edit existing exercises.
+
+```ts
+import { View, Platform, StyleSheet } from 'react-native';
+import { EditExercise } from 'gymsense-rn';
+import type { ExerciseUpdatedPayload } from 'gymsense-rn';
+
+export default function Index() {
+  return (
+    <View style={styles.safeArea}>
+      <EditExercise
+        token="your_token_here"
+        exerciseId={123}
+        theme="light"
+        onExerciseUpdated={(result: ExerciseUpdatedPayload) => {
+          console.log("Exercise Updated");
+          console.log("Exercise ID:", result.exerciseId);
+          console.log("Exercise Name:", result.exerciseName);
+          console.log("Exercise Type:", result.exerciseType);
+          console.log("Author ID:", result.authorId);
+          console.log("Author Name:", result.authorName);
+          console.log("Video URL:", result.videoUrl);
+          console.log("Icon URL:", result.iconUrl);
+          console.log("Updated At:", result.updatedAt);
         }}
         debug={false}
       />
@@ -137,6 +180,16 @@ const styles = StyleSheet.create({
 | `authorName`        | `string`                                   | Yes      | Name of the exercise author          |
 | `theme`             | `'light' \| 'dark'`                        | No       | UI theme (default: `'light'`)        |
 | `onExerciseCreated` | `(result: ExerciseCreatedPayload) => void` | No       | Callback when exercise is created    |
+| `debug`             | `boolean`                                  | No       | Enable debug mode (default: `false`) |
+
+### EditExercise
+
+| Prop                | Type                                       | Required | Description                          |
+| ------------------- | ------------------------------------------ | -------- | ------------------------------------ |
+| `token`             | `string`                                   | Yes      | Authentication token                 |
+| `exerciseId`        | `number`                                   | Yes      | ID of the exercise to edit           |
+| `theme`             | `'light' \| 'dark'`                        | No       | UI theme (default: `'light'`)        |
+| `onExerciseUpdated` | `(result: ExerciseUpdatedPayload) => void` | No       | Callback when exercise is updated    |
 | `debug`             | `boolean`                                  | No       | Enable debug mode (default: `false`) |
 
 ## Message Payloads
@@ -189,7 +242,23 @@ Triggered when the entire exercise session is completed (all sets finished).
   authorId: string; // ID of the author/trainer
   authorName: string; // Name of the author/trainer
   videoUrl: string; // URL to the reference video
+  iconUrl: string; // URL to the exercise icon
   createdAt: string; // ISO timestamp of creation
+}
+```
+
+### ExerciseUpdatedPayload
+
+```ts
+{
+  exerciseId: number; // Database ID of the updated exercise
+  exerciseName: string; // Name of the exercise
+  exerciseType: 'repetition' | 'hold'; // Exercise type
+  authorId: string; // ID of the author/trainer
+  authorName: string; // Name of the author/trainer
+  videoUrl: string; // URL to the reference video
+  iconUrl: string; // URL to the exercise icon
+  updatedAt: string; // ISO timestamp of update
 }
 ```
 

@@ -6,6 +6,7 @@ export interface GymSenseMessage {
     | 'SESSION_CANCELED'
     | 'SET_COMPLETE'
     | 'EXERCISE_CREATED'
+    | 'EXERCISE_UPDATED'
     | 'TTS_SPEAK'
     | 'TTS_STOP';
   payload?:
@@ -13,6 +14,7 @@ export interface GymSenseMessage {
     | SessionCompletePayload
     | SetCompletePayload
     | ExerciseCreatedPayload
+    | ExerciseUpdatedPayload
     | TTSSpeakPayload
     | Record<string, never>;
 }
@@ -58,5 +60,17 @@ export interface ExerciseCreatedPayload {
   authorId: string; // ID of the author/trainer
   authorName: string; // Name of the author/trainer
   videoUrl: string; // URL to the reference video
+  iconUrl: string; // URL to the exercise icon
   createdAt: string; // ISO timestamp of creation
+}
+
+export interface ExerciseUpdatedPayload {
+  exerciseId: number; // Database ID of the updated exercise
+  exerciseName: string; // Name of the exercise
+  exerciseType: 'repetition' | 'hold'; // Exercise type
+  authorId: string; // ID of the author/trainer
+  authorName: string; // Name of the author/trainer
+  videoUrl: string; // URL to the reference video
+  iconUrl: string; // URL to the exercise icon
+  updatedAt: string; // ISO timestamp of update
 }
