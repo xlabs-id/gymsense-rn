@@ -3,8 +3,7 @@ import type {
   SessionCompletePayload,
   SetCompletePayload,
 } from '../models/GymSenseMessage';
-
-const ROOT_URI = 'https://gymsense.xlabs.id';
+import { GYMSENSE_URI } from './Constants';
 
 type Props = {
   token: string;
@@ -41,7 +40,7 @@ export const Exercise = ({
   onSessionCanceled,
   debug = false,
 }: Props) => {
-  const uri = `${ROOT_URI}/bootstrap?destination=exercise&exercise_id=${exerciseId}&target=${target}&sets=${sets}&rest_duration=${restDuration}&theme=${theme}&auth_token=${token}${bodyWeight !== undefined ? `&body_weight=${bodyWeight}` : ''}${resultPostUrl !== undefined ? `&result_post_url=${encodeURIComponent(resultPostUrl)}` : ''}${resultPostToken !== undefined ? `&result_post_token=${resultPostToken}` : ''}${debug ? '&debug=true' : ''}`;
+  const uri = `${GYMSENSE_URI}/bootstrap?destination=exercise&exercise_id=${exerciseId}&target=${target}&sets=${sets}&rest_duration=${restDuration}&theme=${theme}&auth_token=${token}${bodyWeight !== undefined ? `&body_weight=${bodyWeight}` : ''}${resultPostUrl !== undefined ? `&result_post_url=${encodeURIComponent(resultPostUrl)}` : ''}${resultPostToken !== undefined ? `&result_post_token=${resultPostToken}` : ''}${debug ? '&debug=true' : ''}`;
 
   return (
     <CrossPlatformWebView

@@ -1,7 +1,6 @@
 import CrossPlatformWebView from './CrossPlatformWebView';
 import type { ExerciseCreatedPayload } from '../models/GymSenseMessage';
-
-const ROOT_URI = 'https://gymsense.xlabs.id';
+import { GYMSENSE_URI } from './Constants';
 
 type Props = {
   token: string;
@@ -25,7 +24,7 @@ export const RecordExercise = ({
   debug = false,
 }: Props) => {
   const encodedAuthorName = encodeURIComponent(authorName);
-  const uri = `${ROOT_URI}/bootstrap?destination=record-exercise&author_id=${authorId}&author_name=${encodedAuthorName}&theme=${theme}&auth_token=${token}${debug ? '&debug=true' : ''}`;
+  const uri = `${GYMSENSE_URI}/bootstrap?destination=record-exercise&author_id=${authorId}&author_name=${encodedAuthorName}&theme=${theme}&auth_token=${token}${debug ? '&debug=true' : ''}`;
 
   return (
     <CrossPlatformWebView
