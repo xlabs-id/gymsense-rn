@@ -7,6 +7,7 @@ import type {
   SetCompletePayload,
   ExerciseCreatedPayload,
   ExerciseUpdatedPayload,
+  ShareVideoPayload,
 } from '../../models/GymSenseMessage';
 
 type Props = {
@@ -48,6 +49,32 @@ export default function CrossPlatformWebView(props: Props) {
 
         if (data?.type === 'EXERCISE_UPDATED' && data.payload) {
           props.onExerciseUpdated?.(data.payload as ExerciseUpdatedPayload);
+        }
+
+        if (data?.type === 'SHARE_VIDEO' && data.payload) {
+          const { videoBase64, mimeType } = data.payload as ShareVideoPayload;
+          const byteChars = atob(videoBase64);
+          const byteArray = new Uint8Array(byteChars.length);
+          for (let i = 0; i < byteChars.length; i++) {
+            byteArray[i] = byteChars.charCodeAt(i);
+          }
+          const blob = new Blob([byteArray], { type: mimeType });
+          const ext = mimeType.split('/')[1] || 'mp4';
+          const file = new File([blob], `gymsense-video.${ext}`, {
+            type: mimeType,
+          });
+
+          if (navigator.canShare?.({ files: [file] })) {
+            navigator.share({ files: [file] });
+          } else {
+            // Fallback: trigger download
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name;
+            a.click();
+            URL.revokeObjectURL(url);
+          }
         }
       } catch (error) {
         console.error(

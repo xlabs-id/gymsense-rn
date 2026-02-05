@@ -1,6 +1,6 @@
 {
   "name": "gymsense-rn",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "XLabs GymSense multiplatform SDK",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
@@ -78,6 +78,7 @@
     "eslint-plugin-jest": "^29.11.0",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-native": "^5.0.0",
+    "expo-file-system": "^18.1.11",
     "expo-speech": "^14.0.8",
     "jest": "^29.7.0",
     "prettier": "^3.6.2",
@@ -88,9 +89,11 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
+    "expo-file-system": "*",
     "expo-speech": "*",
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-share": "^11.0.4"
   },
   "workspaces": [
     "example"
@@ -158,6 +161,7 @@
     "version": "0.54.5"
   },
   "dependencies": {
+    "react-native-share": "^11.0.4",
     "react-native-webview": "^13.16.0"
   }
 }

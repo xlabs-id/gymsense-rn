@@ -6,4 +6,5 @@ export type {
   SetCompletePayload,
   ExerciseCreatedPayload,
   ExerciseUpdatedPayload,
+  ShareVideoPayload,
 } from './models/GymSenseMessage';

@@ -8,7 +8,8 @@ export interface GymSenseMessage {
     | 'EXERCISE_CREATED'
     | 'EXERCISE_UPDATED'
     | 'TTS_SPEAK'
-    | 'TTS_STOP';
+    | 'TTS_STOP'
+    | 'SHARE_VIDEO';
   payload?:
     | string
     | SessionCompletePayload
@@ -16,6 +17,7 @@ export interface GymSenseMessage {
     | ExerciseCreatedPayload
     | ExerciseUpdatedPayload
     | TTSSpeakPayload
+    | ShareVideoPayload
     | Record<string, never>;
 }
 
@@ -73,4 +75,9 @@ export interface ExerciseUpdatedPayload {
   videoUrl: string; // URL to the reference video
   iconUrl: string; // URL to the exercise icon
   updatedAt: string; // ISO timestamp of update
+}
+
+export interface ShareVideoPayload {
+  videoBase64: string; // Base64-encoded video data
+  mimeType: string; // e.g. "video/mp4"
 }

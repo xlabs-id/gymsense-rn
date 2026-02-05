@@ -1,12 +1,15 @@
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import * as Speech from 'expo-speech';
+import * as FileSystem from 'expo-file-system';
+import Share from 'react-native-share';
 import type {
   GymSenseMessage,
   SessionCompletePayload,
   SetCompletePayload,
   ExerciseCreatedPayload,
   ExerciseUpdatedPayload,
+  ShareVideoPayload,
 } from '../../models/GymSenseMessage';
 
 type Props = {
@@ -101,6 +104,22 @@ export default function CrossPlatformWebView(props: Props) {
           // Handle TTS stop requests
           if (data?.type === 'TTS_STOP') {
             Speech.stop();
+          }
+
+          // Handle video sharing requests
+          if (data?.type === 'SHARE_VIDEO' && data.payload) {
+            const { videoBase64, mimeType } = data.payload as ShareVideoPayload;
+            const ext = mimeType.split('/')[1] || 'mp4';
+            const fileUri = `${FileSystem.cacheDirectory}gymsense-video.${ext}`;
+
+            FileSystem.writeAsStringAsync(fileUri, videoBase64, {
+              encoding: FileSystem.EncodingType.Base64,
+            }).then(() => {
+              Share.open({
+                url: fileUri,
+                type: mimeType,
+              });
+            });
           }
         } catch (error) {
           console.error(
