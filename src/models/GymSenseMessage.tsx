@@ -64,6 +64,8 @@ export interface ExerciseCreatedPayload {
   videoUrl: string; // URL to the reference video
   iconUrl: string; // URL to the exercise icon
   createdAt: string; // ISO timestamp of creation
+  description?: string; // description of the exercise
+  instruction?: string; // instruction for the exercise, /n delimiter
 }
 
 export interface ExerciseUpdatedPayload {
@@ -75,6 +77,8 @@ export interface ExerciseUpdatedPayload {
   videoUrl: string; // URL to the reference video
   iconUrl: string; // URL to the exercise icon
   updatedAt: string; // ISO timestamp of update
+  description?: string; // description of the exercise
+  instruction?: string; // instruction for the exercise, /n delimiter
 }
 
 export interface ShareVideoPayload {
