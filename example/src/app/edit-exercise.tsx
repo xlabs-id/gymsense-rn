@@ -9,6 +9,7 @@ export default function EditExerciseExample() {
         token="your_token_here"
         exerciseId={123}
         theme="light"
+        lang="id"
         onExerciseUpdated={(result: ExerciseUpdatedPayload) => {
           console.log('Exercise Updated Successfully!');
           console.log('Exercise ID:', result.exerciseId);

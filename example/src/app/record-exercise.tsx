@@ -10,6 +10,7 @@ export default function RecordExerciseExample() {
         authorId={1}
         authorName="Demo User"
         theme="light"
+        lang="id"
         onExerciseCreated={(result: ExerciseCreatedPayload) => {
           console.log('Exercise Created Successfully!');
           console.log('Exercise ID:', result.exerciseId);

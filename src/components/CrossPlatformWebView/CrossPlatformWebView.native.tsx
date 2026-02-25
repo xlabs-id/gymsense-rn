@@ -113,7 +113,7 @@ export default function CrossPlatformWebView(props: Props) {
             const fileUri = `${FileSystem.cacheDirectory}gymsense-video.${ext}`;
 
             FileSystem.writeAsStringAsync(fileUri, videoBase64, {
-              encoding: FileSystem.EncodingType.Base64,
+              encoding: 'base64',
             }).then(() => {
               Share.open({
                 url: fileUri,

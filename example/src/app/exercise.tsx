@@ -15,6 +15,7 @@ export default function ExerciseExample() {
         resultPostUrl="https:/api.yours.com/upload/test.mp4"
         resultPostToken="token"
         theme="light"
+        lang="id"
         onSetComplete={(result: SetCompletePayload) => {
           console.log('Set Completed');
           console.log('Set Number:', result.setNumber);

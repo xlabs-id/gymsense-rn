@@ -9,6 +9,7 @@ type Props = {
   theme?: 'light' | 'dark';
   onExerciseCreated?: (result: ExerciseCreatedPayload) => void;
   debug?: boolean;
+  lang?: string;
 };
 
 function GymSenseLogHandler(message: string) {
@@ -22,9 +23,10 @@ export const RecordExercise = ({
   theme = 'light',
   onExerciseCreated,
   debug = false,
+  lang = 'en',
 }: Props) => {
   const encodedAuthorName = encodeURIComponent(authorName);
-  const uri = `${GYMSENSE_URI}/bootstrap?destination=record-exercise&author_id=${authorId}&author_name=${encodedAuthorName}&theme=${theme}&auth_token=${token}${debug ? '&debug=true' : ''}`;
+  const uri = `${GYMSENSE_URI}/bootstrap?destination=record-exercise&author_id=${authorId}&author_name=${encodedAuthorName}&theme=${theme}&auth_token=${token}${debug ? '&debug=true' : ''}&lang=${lang}`;
 
   return (
     <CrossPlatformWebView
