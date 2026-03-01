@@ -1,6 +1,6 @@
 {
   "name": "gymsense-rn",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "XLabs GymSense multiplatform SDK",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",

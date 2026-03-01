@@ -42,7 +42,7 @@ export const Exercise = ({
   debug = false,
   lang = 'id',
 }: Props) => {
-  const uri = `${GYMSENSE_URI}/bootstrap?destination=exercise&exercise_id=${exerciseId}&target=${target}&sets=${sets}&rest_duration=${restDuration}&theme=${theme}&auth_token=${token}${bodyWeight !== undefined ? `&body_weight=${bodyWeight}` : ''}${resultPostUrl !== undefined ? `&result_post_url=${encodeURIComponent(resultPostUrl)}` : ''}${resultPostToken !== undefined ? `&result_post_token=${resultPostToken}` : ''}${debug ? '&debug=true' : ''}&lang=${lang}`;
+  const uri = `${GYMSENSE_URI}/bootstrap?destination=exercise&exercise_id=${exerciseId}&target=${target}&sets=${sets}&rest_duration=${restDuration}&theme=${theme}&auth_token=${token}${bodyWeight !== undefined ? `&body_weight=${bodyWeight}` : ''}${resultPostUrl !== undefined ? `&result_post_url=${encodeURIComponent(resultPostUrl)}` : ''}${resultPostToken !== undefined ? `&result_post_token=${resultPostToken}` : ''}${debug ? '&debug=true' : '&debug=false'}&lang=${lang}`;
 
   return (
     <CrossPlatformWebView

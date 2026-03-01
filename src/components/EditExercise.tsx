@@ -23,7 +23,7 @@ export const EditExercise = ({
   debug = false,
   lang = 'en',
 }: Props) => {
-  const uri = `${GYMSENSE_URI}/bootstrap?destination=record-exercise&exercise_id=${exerciseId}&theme=${theme}&auth_token=${token}${debug ? '&debug=true' : ''}&lang=${lang}`;
+  const uri = `${GYMSENSE_URI}/bootstrap?destination=record-exercise&exercise_id=${exerciseId}&theme=${theme}&auth_token=${token}${debug ? '&debug=true' : '&debug=false'}&lang=${lang}`;
 
   return (
     <CrossPlatformWebView

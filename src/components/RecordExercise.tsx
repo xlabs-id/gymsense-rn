@@ -26,7 +26,7 @@ export const RecordExercise = ({
   lang = 'en',
 }: Props) => {
   const encodedAuthorName = encodeURIComponent(authorName);
-  const uri = `${GYMSENSE_URI}/bootstrap?destination=record-exercise&author_id=${authorId}&author_name=${encodedAuthorName}&theme=${theme}&auth_token=${token}${debug ? '&debug=true' : ''}&lang=${lang}`;
+  const uri = `${GYMSENSE_URI}/bootstrap?destination=record-exercise&author_id=${authorId}&author_name=${encodedAuthorName}&theme=${theme}&auth_token=${token}${debug ? '&debug=true' : '&debug=false'}&lang=${lang}`;
 
   return (
     <CrossPlatformWebView
