@@ -1,18 +1,21 @@
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import * as Speech from 'expo-speech';
-import { File } from 'expo-file-system/next';
+import Share from 'react-native-share';
+
+// Use expo-file-system/next for new File API (no deprecation warning)
+// @ts-ignore - expo-file-system/next has incomplete types but works at runtime
+const { File } = require('expo-file-system/next');
 
 // Type augmentation for the File class since the types are incomplete
-interface FileWithWrite extends File {
+interface FileWithWrite {
   write(content: string | Uint8Array): void;
   uri: string;
 }
 
 function createFile(path: string): FileWithWrite {
-  return new File(path) as FileWithWrite;
+  return new (File as any)(path) as FileWithWrite;
 }
-import Share from 'react-native-share';
 import type {
   GymSenseMessage,
   SessionCompletePayload,
