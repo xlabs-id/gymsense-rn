@@ -1,7 +1,17 @@
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import * as Speech from 'expo-speech';
-import * as FileSystem from 'expo-file-system';
+import { File } from 'expo-file-system/next';
+
+// Type augmentation for the File class since the types are incomplete
+interface FileWithWrite extends File {
+  write(content: string | Uint8Array): void;
+  uri: string;
+}
+
+function createFile(path: string): FileWithWrite {
+  return new File(path) as FileWithWrite;
+}
 import Share from 'react-native-share';
 import type {
   GymSenseMessage,
@@ -110,15 +120,19 @@ export default function CrossPlatformWebView(props: Props) {
           if (data?.type === 'SHARE_VIDEO' && data.payload) {
             const { videoBase64, mimeType } = data.payload as ShareVideoPayload;
             const ext = mimeType.split('/')[1] || 'mp4';
-            const fileUri = `${FileSystem.cacheDirectory}gymsense-video.${ext}`;
+            // Convert base64 to Uint8Array for the new File API
+            const byteCharacters = atob(videoBase64);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+              byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
 
-            FileSystem.writeAsStringAsync(fileUri, videoBase64, {
-              encoding: 'base64',
-            }).then(() => {
-              Share.open({
-                url: fileUri,
-                type: mimeType,
-              });
+            const file = createFile(`file:///cache/gymsense-video.${ext}`);
+            file.write(byteArray);
+            Share.open({
+              url: file.uri,
+              type: mimeType,
             });
           }
         } catch (error) {
