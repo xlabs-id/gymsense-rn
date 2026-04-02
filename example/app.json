@@ -18,11 +18,18 @@
       "bundleIdentifier": "gymsense.example",
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera to detect body moves.",
-        "UIBackgroundModes": ["audio"]
-      }
+        "UIBackgroundModes": [
+          "audio"
+        ]
+      },
+      "appleTeamId": "HN9PY66932"
     },
     "android": {
-      "permissions": ["CAMERA", "MODIFY_AUDIO_SETTINGS", "INTERNET"],
+      "permissions": [
+        "CAMERA",
+        "MODIFY_AUDIO_SETTINGS",
+        "INTERNET"
+      ],
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
