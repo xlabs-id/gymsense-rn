@@ -121,7 +121,7 @@ export default function CrossPlatformWebView(props: Props) {
               Share.open({
                 url: fileUri,
                 type: mimeType,
-              });
+              }).catch(() => {});
             });
           }
         } catch (error) {
