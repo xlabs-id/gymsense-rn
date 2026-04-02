@@ -32,12 +32,13 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace gymsense-rn-example",
+    "example": "npm run -w gymsense-rn-example",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli lib",
     "prepare": "bob build",
+    "postinstall": "node -e \"const fs=require('fs'),p='node_modules/gymsense-rn';if(fs.existsSync(p)&&!fs.lstatSync(p).isSymbolicLink()){fs.rmSync(p,{recursive:true});fs.symlinkSync(process.cwd(),p)}\"",
     "release": "release-it --only-version"
   },
   "keywords": [
@@ -98,7 +99,7 @@
   "workspaces": [
     "example"
   ],
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "npm@11.6.2",
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [

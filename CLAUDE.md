@@ -9,28 +9,28 @@ gymsense-rn is a React Native SDK library for the XLabs GymSense fitness platfor
 ## Commands
 
 ```bash
-yarn                    # Install dependencies (Yarn workspaces, must use yarn not npm)
-yarn typecheck          # TypeScript type checking
-yarn lint               # ESLint + Prettier
-yarn lint --fix         # Auto-fix lint/formatting issues
-yarn test               # Run Jest tests
-yarn clean              # Delete lib/ build output
-yarn prepare            # Build library with react-native-builder-bob
-yarn release            # Publish new version via release-it
+npm install                # Install dependencies (npm workspaces)
+npm run typecheck          # TypeScript type checking
+npm run lint               # ESLint + Prettier
+npm run lint --fix         # Auto-fix lint/formatting issues
+npm run test               # Run Jest tests
+npm run clean              # Delete lib/ build output
+npm run prepare            # Build library with react-native-builder-bob
+npm run release            # Publish new version via release-it
 ```
 
 ### Example App (Expo)
 
 ```bash
-yarn example start      # Start Metro bundler
-yarn example android    # Run on Android
-yarn example ios        # Run on iOS
-yarn example web        # Run on Web
+npm run -w gymsense-rn-example start      # Start Metro bundler
+npm run -w gymsense-rn-example android    # Run on Android
+npm run -w gymsense-rn-example ios        # Run on iOS
+npm run -w gymsense-rn-example web        # Run on Web
 ```
 
 ## Architecture
 
-**Monorepo** using Yarn 3.6.1 workspaces: the library lives at root, the Expo example app in `example/`.
+**Monorepo** using npm workspaces: the library lives at root, the Expo example app in `example/`.
 
 ### Core Pattern: WebView Bridge
 
