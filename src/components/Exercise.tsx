@@ -3,10 +3,11 @@ import type {
   SessionCompletePayload,
   SetCompletePayload,
 } from '../models/GymSenseMessage';
-import { GYMSENSE_URI } from './Constants';
+import { GYMSENSE_URLS, type GymSenseEnv } from './Constants';
 
 type Props = {
   token: string;
+  env?: GymSenseEnv;
   exerciseId: number;
   target: number;
   theme?: 'light' | 'dark';
@@ -30,6 +31,7 @@ export const Exercise = ({
   token,
   exerciseId,
   target,
+  env = 'production',
   theme = 'light',
   sets = 1,
   restDuration = 30,
@@ -42,7 +44,7 @@ export const Exercise = ({
   debug = false,
   lang = 'id',
 }: Props) => {
-  const uri = `${GYMSENSE_URI}/bootstrap?destination=exercise&exercise_id=${exerciseId}&target=${target}&sets=${sets}&rest_duration=${restDuration}&theme=${theme}&auth_token=${token}${bodyWeight !== undefined ? `&body_weight=${bodyWeight}` : ''}${resultPostUrl !== undefined ? `&result_post_url=${encodeURIComponent(resultPostUrl)}` : ''}${resultPostToken !== undefined ? `&result_post_token=${resultPostToken}` : ''}${debug ? '&debug=true' : '&debug=false'}&lang=${lang}`;
+  const uri = `${GYMSENSE_URLS[env]}/bootstrap?destination=exercise&exercise_id=${exerciseId}&target=${target}&sets=${sets}&rest_duration=${restDuration}&theme=${theme}&auth_token=${token}${bodyWeight !== undefined ? `&body_weight=${bodyWeight}` : ''}${resultPostUrl !== undefined ? `&result_post_url=${encodeURIComponent(resultPostUrl)}` : ''}${resultPostToken !== undefined ? `&result_post_token=${resultPostToken}` : ''}${debug ? '&debug=true' : '&debug=false'}&lang=${lang}`;
 
   return (
     <CrossPlatformWebView

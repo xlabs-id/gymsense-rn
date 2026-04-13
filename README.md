@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
 | `restDuration`      | `number`                                   | No       | Rest duration between sets in seconds (default: `30`) |
 | `bodyWeight`        | `number`                                   | No       | User's body weight in kg (optional)                   |
 | `theme`             | `'light' \| 'dark'`                        | No       | UI theme (default: `'light'`)                         |
+| `env`               | `'development' \| 'staging' \| 'production'` | No    | GymSense environment (default: `'production'`)        |
 | `onSetComplete`     | `(result: SetCompletePayload) => void`     | No       | Callback when each set completes                      |
 | `onSessionComplete` | `(result: SessionCompletePayload) => void` | No       | Callback when entire session completes                |
 | `onSessionCanceled` | `() => void`                               | No       | Callback when session is canceled                     |
@@ -179,6 +180,7 @@ const styles = StyleSheet.create({
 | `authorId`          | `number`                                   | Yes      | ID of the exercise author            |
 | `authorName`        | `string`                                   | Yes      | Name of the exercise author          |
 | `theme`             | `'light' \| 'dark'`                        | No       | UI theme (default: `'light'`)        |
+| `env`               | `'development' \| 'staging' \| 'production'` | No    | GymSense environment (default: `'production'`) |
 | `onExerciseCreated` | `(result: ExerciseCreatedPayload) => void` | No       | Callback when exercise is created    |
 | `debug`             | `boolean`                                  | No       | Enable debug mode (default: `false`) |
 
@@ -189,6 +191,7 @@ const styles = StyleSheet.create({
 | `token`             | `string`                                   | Yes      | Authentication token                 |
 | `exerciseId`        | `number`                                   | Yes      | ID of the exercise to edit           |
 | `theme`             | `'light' \| 'dark'`                        | No       | UI theme (default: `'light'`)        |
+| `env`               | `'development' \| 'staging' \| 'production'` | No    | GymSense environment (default: `'production'`) |
 | `onExerciseUpdated` | `(result: ExerciseUpdatedPayload) => void` | No       | Callback when exercise is updated    |
 | `debug`             | `boolean`                                  | No       | Enable debug mode (default: `false`) |
 

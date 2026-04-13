@@ -8,3 +8,4 @@ export type {
   ExerciseUpdatedPayload,
   ShareVideoPayload,
 } from './models/GymSenseMessage';
+export type { GymSenseEnv } from './components/Constants';
