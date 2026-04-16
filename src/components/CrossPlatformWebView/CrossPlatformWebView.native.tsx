@@ -41,7 +41,7 @@ export default function CrossPlatformWebView(props: Props) {
       androidzoomControlEnabled={false}
       startInLoadingState={true}
       mediaCapturePermissionGrantType="grant"
-      textInteractionEnabled={false}
+      textInteractionEnabled={true}
       pullToRefreshEnabled={false}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
