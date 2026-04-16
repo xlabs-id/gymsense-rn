@@ -21,6 +21,9 @@ export default function EditExerciseExample() {
           console.log('Icon URL:', result.iconUrl);
           console.log('Updated At:', result.updatedAt);
         }}
+        onSessionCanceled={() => {
+          console.log('Session Canceled');
+        }}
         debug={false}
       />
     </View>
