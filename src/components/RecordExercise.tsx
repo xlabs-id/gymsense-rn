@@ -9,6 +9,7 @@ type Props = {
   authorName: string;
   theme?: 'light' | 'dark';
   onExerciseCreated?: (result: ExerciseCreatedPayload) => void;
+  onSessionCanceled?: () => void;
   debug?: boolean;
   lang?: string;
 };
@@ -24,6 +25,7 @@ export const RecordExercise = ({
   env = 'production',
   theme = 'light',
   onExerciseCreated,
+  onSessionCanceled,
   debug = false,
   lang = 'en',
 }: Props) => {
@@ -33,6 +35,7 @@ export const RecordExercise = ({
   return (
     <CrossPlatformWebView
       onExerciseCreated={onExerciseCreated}
+      onSessionCanceled={onSessionCanceled}
       onLog={GymSenseLogHandler}
       uri={uri}
     />

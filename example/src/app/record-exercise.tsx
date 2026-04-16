@@ -22,6 +22,9 @@ export default function RecordExerciseExample() {
           console.log('Icon URL:', result.iconUrl);
           console.log('Created At:', result.createdAt);
         }}
+        onSessionCanceled={() => {
+          console.log('Session Canceled');
+        }}
         debug={false}
       />
     </View>
